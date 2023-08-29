@@ -163,8 +163,8 @@ int suspicious_dns;
 
 	logmsg(LOG_DEBUG, "user %s", (user == NULL) ? "(unknown)" : user);
 
-/* if not blocking all and the user is known, let go */
-	if (!(options & OPT_BLOCK_ALL) && user != NULL && (pwd = getpwnam(user)) != NULL) {
+/* if not blocking all and the user is known and different from root, let go */
+	if (!(options & OPT_BLOCK_ALL) && user != NULL && strcmp(user, "root") != 0 && (pwd = getpwnam(user)) != NULL) {
 		logmsg(LOG_DEBUG, "ignoring known user %s", user);
 		deinit_module();
 		return PAM_IGNORE;
