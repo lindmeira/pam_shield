@@ -1,0 +1,8 @@
+[Unit]
+Description=PAM Shield Purge Routine
+ConditionFileIsExecutable=/usr/sbin/shield-purge
+
+[Service]
+ExecStart=/usr/sbin/shield-purge -c /etc/security/shield.conf
+SyslogIdentifier=shield
+Type=simple

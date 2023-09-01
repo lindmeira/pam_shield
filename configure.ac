@@ -67,5 +67,14 @@ AC_DEFINE_UNQUOTED([PAM_SHIELD_VERSION], ["$VERSION"],
 prefix="$ac_save_prefix"
 exec_prefix="$ac_save_exec_prefix"
 
+AC_MSG_CHECKING([for systemd])
+if [$(ps --noheader -o comm 1 | grep -q systemd)]; then
+    systemd_available="yes"
+else
+    systemd_available="no"
+fi
+AC_MSG_RESULT([$systemd_available])
+AM_CONDITIONAL([SYSTEMD_MANAGED], [test x"$systemd_available" = x"yes"])
+
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT

@@ -7,8 +7,15 @@ securitydir        = ${sysconfdir}/security
 dist_security_DATA = shield.conf
 pamcfgdir          = ${datarootdir}/pam-configs
 dist_pamcfg_DATA   = pam-configs/pam_shield
+if SYSTEMD_MANAGED
+servunitdir        = ${sysconfdir}/systemd/system
+dist_servunit_DATA = systemd/shield.service systemd/shield.timer
+enable_service     = systemctl enable --now shield.timer
+disable_service    = (systemctl daemon-reload; systemctl reset-failed)
+else
 crondir            = ${sysconfdir}/cron.daily
 dist_cron_SCRIPTS  = cron.daily/pam_shield
+endif
 dist_man_MANS      = man/shield.conf.5 man/shield-purge.8 man/shield-trigger.8 man/shield-trigger-iptables.8 man/shield-trigger-ufw.8
 EXTRA_DIST         = CREDITS Changelog autogen.sh
 
@@ -34,10 +41,12 @@ install-exec-hook:
 install-data-hook:
 	rm -f "${DESTDIR}${moduledir}/pam_shield.la";
 	${INSTALL} -dm0755 "${DESTDIR}${sbindir}";
+	$(enable_service)
 
 #Remove the .so by hand; since we remove the .la, libtool won't get the .so
 #also clean up the database
 uninstall-hook:
 	rm -f "${DESTDIR}${moduledir}/pam_shield.so";
-	rm -f "${DESTDIR}${localstatedir}/lib/pam_shield/db"
+	rm -f "${DESTDIR}${localstatedir}/lib/pam_shield/db";
 	rmdir --ignore-fail-on-non-empty "${DESTDIR}${localstatedir}/lib/pam_shield";
+	$(disable_service)
