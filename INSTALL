@@ -30,8 +30,7 @@ pam_shield contains a standard GNU configure script; basic setup:
 make
 make install
 
-If using a git checkout instead of a tarball, use:
-autoreconf -i
+If using a git checkout instead of a tarball, run 'autoreconf -i'
 first.
 
 pam_shield consists of:
