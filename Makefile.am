@@ -35,6 +35,7 @@ install-exec-hook:
 	rm -f "${DESTDIR}${moduledir}/pam_shield.la";
 	${INSTALL} -dm0755 "${DESTDIR}${sbindir}";
 	${INSTALL} -dm0755 "${DESTDIR}${localstatedir}/lib/pam_shield";
+	> "${DESTDIR}${localstatedir}/lib/pam_shield/db";
 
 #The slib dir isn't considered exec, so make sure this really runs
 #after libtool dumps the la
