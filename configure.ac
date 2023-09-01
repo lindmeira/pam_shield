@@ -1,5 +1,5 @@
 
-AC_INIT(pam-shield, 0.9.7)
+AC_INIT([pam-shield],[0.9.7])
 AC_CONFIG_HEADERS(config.h)
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE
@@ -7,13 +7,13 @@ AM_INIT_AUTOMAKE
 AC_PROG_CC
 AC_PROG_INSTALL
 AC_DISABLE_STATIC
-AM_PROG_LIBTOOL
+LT_INIT
 AC_PROG_LN_S
 
 AC_PREFIX_DEFAULT(/usr)
 AC_ARG_WITH([slibdir], AS_HELP_STRING([--with-slibdir=PATH],
-	[Path to the super lib directory [/lib]]),
-	[slibdir="$withval"], [slibdir="/lib"])
+	[Path to the super lib directory [/lib64]]),
+	[slibdir="$withval"], [slibdir="/lib64"])
 AC_SUBST(slibdir)
 
 AC_CHECK_HEADER(gdbm.h, [],
@@ -67,4 +67,5 @@ AC_DEFINE_UNQUOTED([PAM_SHIELD_VERSION], ["$VERSION"],
 prefix="$ac_save_prefix"
 exec_prefix="$ac_save_exec_prefix"
 
-AC_OUTPUT(Makefile)
+AC_CONFIG_FILES([Makefile])
+AC_OUTPUT
