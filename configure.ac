@@ -67,6 +67,9 @@ AC_DEFINE_UNQUOTED([PAM_SHIELD_VERSION], ["$VERSION"],
 prefix="$ac_save_prefix"
 exec_prefix="$ac_save_exec_prefix"
 
+AC_ARG_VAR([PKG_CONFIG], [Path to pkg-config])
+AC_CHECK_PROGS([PKG_CONFIG], [pkg-config])
+
 AC_MSG_CHECKING([for systemd])
 if [$(ps --noheader -o comm 1 | grep -q systemd)]; then
     systemd_available="yes"
@@ -75,6 +78,10 @@ else
 fi
 AC_MSG_RESULT([$systemd_available])
 AM_CONDITIONAL([SYSTEMD_MANAGED], [test x"$systemd_available" = x"yes"])
+
+AC_MSG_CHECKING([for systemd service units path])
+AC_SUBST([SYSD_SERV_UNIT_PATH], [$("$PKG_CONFIG" systemd --variable=systemdsystemunitdir)])
+AC_MSG_RESULT(["$SYSD_SERV_UNIT_PATH"])
 
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
