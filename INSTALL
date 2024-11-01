@@ -16,21 +16,24 @@ correctly, will render it useless.
 Building pam_shield
 -------------------
 
-Pre-reqs on a Debian or Ubuntu-like system:
-	libpam0g-dev
-	libgdbm-dev
+Pre-reqs on Debian or Ubuntu-based systems:
+    libpam0g-dev
+    libgdbm-dev
 
-Pre-reqs on a RedHat or Fedora-like system:
+Pre-reqs on RedHat or SUSE-based systems:
     pam-devel
     gdbm-devel
+    autoconf*
+    libtool*
 
+* Only when building from a git checkout
 
 pam_shield contains a standard GNU configure script; basic setup:
 ./configure
 make
 make install
 
-If using a git checkout instead of a tarball, run 'autoreconf -i'
+If building from a git checkout instead of a tarball, run 'autoreconf -i'
 first.
 
 pam_shield consists of:
