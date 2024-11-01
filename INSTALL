@@ -23,18 +23,19 @@ Pre-reqs on Debian or Ubuntu-based systems:
 Pre-reqs on RedHat or SUSE-based systems:
     pam-devel
     gdbm-devel
-    autoconf*
-    libtool*
+    autoconf
+    libtool
 
-* Only when building from a git checkout
+Note: this particular fork uses the iptables trigger as default, so make sure
+to have installed the iptables nft backend equivalent package in your system.
+Otherwise, change the shield.conf file to set an alternative default trigger.
 
-pam_shield contains a standard GNU configure script; basic setup:
-./configure
-make
-make install
-
-If building from a git checkout instead of a tarball, run 'autoreconf -i'
-first.
+Building steps:
+---------------
+- autoreconf --install
+- ./configure
+- make
+- make install
 
 pam_shield consists of:
 - one PAM module:   /lib/security/pam_shield.so

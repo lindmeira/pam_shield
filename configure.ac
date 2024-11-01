@@ -10,6 +10,8 @@ AC_DISABLE_STATIC
 LT_INIT
 AC_PROG_LN_S
 
+PKG_CHECK_MODULES([IPTABLES], [iptables-backend-nft])
+
 AC_PREFIX_DEFAULT(/usr)
 AC_ARG_WITH([slibdir], AS_HELP_STRING([--with-slibdir=PATH],
 	[Path to the super lib directory [/lib64]]),
